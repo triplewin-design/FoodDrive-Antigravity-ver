@@ -25,19 +25,50 @@ export default function LocationsMap({ theme }) {
         </p>
       </div>
 
-      {/* Googleマップの埋め込み */}
+      {/* Googleマップ風モックアップ（背景に本物の地図を表示し、上にピンを合成） */}
       <div className="glass-panel" style={{ padding: '0.5rem', marginBottom: '2rem' }}>
-        <div style={{ width: '100%', height: '400px', borderRadius: '12px', overflow: 'hidden' }}>
+        <div style={{ width: '100%', height: '400px', borderRadius: '12px', overflow: 'hidden', position: 'relative' }}>
+          
+          {/* 背景の地図（スクロールによるピンのズレを防ぐため、操作不可にする） */}
           <iframe 
-            src="https://maps.google.com/maps?q=日進市&t=&z=13&ie=UTF8&iwloc=&output=embed" 
+            src="https://maps.google.com/maps?q=日進市役所&t=&z=13&ie=UTF8&iwloc=&output=embed" 
             width="100%" 
             height="100%" 
-            style={{ border: 0 }} 
+            style={{ border: 0, pointerEvents: 'none', filter: 'brightness(0.95)' }} 
             allowFullScreen="" 
             loading="lazy" 
             referrerPolicy="no-referrer-when-downgrade"
             title="日進市近辺のマップ"
           ></iframe>
+
+          {/* 公共施設のピン */}
+          <div className="map-pin" style={{ top: '48%', left: '46%' }} title="にっしんマスプロ市民会館">
+            <MapPin size={32} color="white" fill="var(--color-primary)" />
+            <div style={{ background: 'var(--color-surface)', color: 'var(--color-text)', padding: '0.2rem 0.5rem', borderRadius: '4px', fontSize: '0.75rem', fontWeight: 'bold', marginTop: '0.25rem', boxShadow: '0 2px 4px rgba(0,0,0,0.2)', border: '1px solid var(--color-border)', whiteSpace: 'nowrap' }}>市民会館</div>
+          </div>
+          <div className="map-pin" style={{ top: '42%', left: '55%' }} title="生涯学習プラザ">
+            <MapPin size={32} color="white" fill="var(--color-primary)" />
+            <div style={{ background: 'var(--color-surface)', color: 'var(--color-text)', padding: '0.2rem 0.5rem', borderRadius: '4px', fontSize: '0.75rem', fontWeight: 'bold', marginTop: '0.25rem', boxShadow: '0 2px 4px rgba(0,0,0,0.2)', border: '1px solid var(--color-border)', whiteSpace: 'nowrap' }}>生涯学習プラザ</div>
+          </div>
+          <div className="map-pin" style={{ top: '65%', left: '60%' }} title="総合運動公園">
+            <MapPin size={32} color="white" fill="var(--color-primary)" />
+            <div style={{ background: 'var(--color-surface)', color: 'var(--color-text)', padding: '0.2rem 0.5rem', borderRadius: '4px', fontSize: '0.75rem', fontWeight: 'bold', marginTop: '0.25rem', boxShadow: '0 2px 4px rgba(0,0,0,0.2)', border: '1px solid var(--color-border)', whiteSpace: 'nowrap' }}>運動公園</div>
+          </div>
+
+          {/* バローグループのピン */}
+          <div className="map-pin" style={{ top: '35%', left: '35%' }} title="バロー日進岩崎店">
+            <MapPin size={32} color="white" fill="var(--color-primary-dark)" />
+            <div style={{ background: 'var(--color-surface)', color: 'var(--color-text)', padding: '0.2rem 0.5rem', borderRadius: '4px', fontSize: '0.75rem', fontWeight: 'bold', marginTop: '0.25rem', boxShadow: '0 2px 4px rgba(0,0,0,0.2)', border: '1px solid var(--color-border)', whiteSpace: 'nowrap' }}>バロー岩崎店</div>
+          </div>
+          <div className="map-pin" style={{ top: '60%', left: '72%' }} title="V・ドラッグ米野木店">
+            <MapPin size={32} color="white" fill="var(--color-primary-dark)" />
+            <div style={{ background: 'var(--color-surface)', color: 'var(--color-text)', padding: '0.2rem 0.5rem', borderRadius: '4px', fontSize: '0.75rem', fontWeight: 'bold', marginTop: '0.25rem', boxShadow: '0 2px 4px rgba(0,0,0,0.2)', border: '1px solid var(--color-border)', whiteSpace: 'nowrap' }}>Vドラッグ 米野木</div>
+          </div>
+          <div className="map-pin" style={{ top: '55%', left: '25%' }} title="V・ドラッグ日進栄店">
+            <MapPin size={32} color="white" fill="var(--color-primary-dark)" />
+            <div style={{ background: 'var(--color-surface)', color: 'var(--color-text)', padding: '0.2rem 0.5rem', borderRadius: '4px', fontSize: '0.75rem', fontWeight: 'bold', marginTop: '0.25rem', boxShadow: '0 2px 4px rgba(0,0,0,0.2)', border: '1px solid var(--color-border)', whiteSpace: 'nowrap' }}>Vドラッグ 日進栄</div>
+          </div>
+
         </div>
       </div>
 
