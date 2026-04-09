@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Send, CheckCircle } from 'lucide-react';
+import BackNav from '../components/BackNav';
 
 export default function Donate({ theme }) {
   const [submitted, setSubmitted] = useState(false);
@@ -13,8 +14,8 @@ export default function Donate({ theme }) {
   if (submitted) {
     return (
       <div className="glass-panel" style={{ padding: '4rem 2rem', textAlign: 'center', maxWidth: '600px', margin: '0 auto' }}>
-        <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: 'spring' }}>
-          <CheckCircle size={80} color="var(--c-success)" style={{ margin: '0 auto', marginBottom: '1.5rem' }} />
+        <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 0.3 }}>
+          <CheckCircle size={80} style={{ color: 'var(--color-primary)', margin: '0 auto', marginBottom: '1.5rem' }} />
           <h2 className="title-xl" style={{ fontSize: '2rem' }}>寄付の登録が完了しました</h2>
           <p className="text-muted" style={{ fontSize: '1.1rem', marginBottom: '2rem' }}>
             あたたかいご支援をありがとうございます。<br />
@@ -31,10 +32,11 @@ export default function Donate({ theme }) {
   return (
     <div style={{ maxWidth: '700px', margin: '0 auto' }}>
       <div className="glass-panel" style={{ padding: '2.5rem' }}>
+        <BackNav />
         <h2 className="title-xl" style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>寄付内容を登録する</h2>
         <p className="text-muted mb-8">
           寄付いただける食品の内容をお知らせください。
-          <br /><strong style={{ color: 'var(--c-danger)' }}>※賞味期限が1ヶ月以上、常温保存可能なものが対象です。</strong>
+          <br /><strong style={{ color: 'var(--color-primary)' }}>※賞味期限が1ヶ月以上、常温保存可能なものが対象です。</strong>
         </p>
 
         <form onSubmit={handleSubmit}>
@@ -76,10 +78,10 @@ export default function Donate({ theme }) {
           <div className="form-group mb-8">
             <label className="form-label">受け渡し方法</label>
             <div style={{ display: 'flex', gap: '1rem' }}>
-              <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer' }}>
+              <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer', color: 'var(--color-text)' }}>
                 <input type="radio" name="delivery" defaultChecked /> 自分で持ち込む
               </label>
-              <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer' }}>
+              <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer', color: 'var(--color-text)' }}>
                 <input type="radio" name="delivery" /> 回収に来てほしい
               </label>
             </div>

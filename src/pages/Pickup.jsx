@@ -1,10 +1,12 @@
 import React from 'react';
 import { Truck } from 'lucide-react';
+import BackNav from '../components/BackNav';
 
 export default function Pickup({ theme }) {
   return (
     <div style={{ maxWidth: '700px', margin: '0 auto' }}>
       <div className="glass-panel" style={{ padding: '2.5rem' }}>
+        <BackNav />
         <h2 className="title-xl" style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>回収依頼</h2>
         <p className="text-muted mb-8">
           重いものや量が多い場合、ご自宅や指定の場所まで回収に伺います。<br />

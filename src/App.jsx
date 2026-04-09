@@ -12,14 +12,8 @@ import LocationsMap from './pages/LocationsMap';
 import Flow from './pages/Flow';
 
 const Header = ({ theme, setTheme }) => {
-  const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
-
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const toggleTheme = () => {
     const newTheme = theme === 'human' ? 'cat' : 'human';
@@ -27,39 +21,96 @@ const Header = ({ theme, setTheme }) => {
     document.documentElement.setAttribute('data-theme', newTheme);
   };
 
-  const navLinks = [
+  // 寄付する, 回収を頼む are main
+  const mainLinks = [
     { name: '寄付する', path: '/donate', icon: <Heart size={18} /> },
+    { name: '回収を頼む', path: '/pickup', icon: <Truck size={18} /> }
+  ];
+
+  // Others in hamburger
+  const subLinks = [
     { name: '必要なもの', path: '/needs', icon: <PackageSearch size={18} /> },
-    { name: '回収依頼', path: '/pickup', icon: <Truck size={18} /> },
     { name: 'マップ', path: '/map', icon: <MapIcon size={18} /> },
     { name: '寄付の流れ', path: '/flow', icon: <ArrowRightLeft size={18} /> },
   ];
 
   return (
-    <header className={`header ${scrolled ? 'scrolled glass-panel' : ''}`} style={{ borderRadius: scrolled ? '0 0 24px 24px' : '0' }}>
-      <Link to="/" style={{ textDecoration: 'none', color: 'inherit', fontWeight: '800', fontSize: '1.2rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-        <Heart fill="var(--c-primary)" color="var(--c-primary)" />
-        <span>Tsunagu {theme === 'cat' ? 'Meow' : 'Food'}</span>
-      </Link>
-      
-      <div className="nav-menu">
-        {navLinks.map((link) => (
-          <Link 
-            key={link.path} 
-            to={link.path} 
-            className={`nav-link ${location.pathname === link.path ? 'active' : ''}`}
-          >
-            {link.name}
-          </Link>
-        ))}
+    <>
+      <header className="header">
+        <Link to="/" className="header-logo">
+          <Heart fill="var(--color-primary)" color="var(--color-primary)" size={24} />
+          <span>FoodDrive</span>
+        </Link>
         
-        <div className="theme-toggle" onClick={toggleTheme}>
-          <div className="toggle-indicator"></div>
-          <div className={`toggle-option ${theme === 'human' ? 'active' : ''}`}>人用</div>
-          <div className={`toggle-option ${theme === 'cat' ? 'active' : ''}`}>猫用</div>
+        <div className="nav-container">
+          <div className="desktop-nav">
+            {mainLinks.map((link) => (
+              <Link 
+                key={link.path} 
+                to={link.path} 
+                className={`nav-link ${location.pathname === link.path ? 'active' : ''}`}
+              >
+                {link.icon} {link.name}
+              </Link>
+            ))}
+          </div>
+
+          <div className="theme-toggle" onClick={toggleTheme}>
+            <div className="toggle-indicator"></div>
+            <div className={`toggle-option ${theme === 'human' ? 'active' : ''}`}>人用</div>
+            <div className={`toggle-option ${theme === 'cat' ? 'active' : ''}`}>猫用</div>
+          </div>
+
+          <button className="mobile-menu-btn" onClick={() => setMobileMenuOpen(true)}>
+            <Menu size={24} />
+          </button>
         </div>
-      </div>
-    </header>
+      </header>
+
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <>
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="mobile-menu-overlay"
+              onClick={() => setMobileMenuOpen(false)}
+            />
+            <motion.div 
+              initial={{ x: '100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '100%' }}
+              transition={{ type: 'tween', duration: 0.3 }}
+              className="mobile-menu"
+            >
+              <button 
+                onClick={() => setMobileMenuOpen(false)} 
+                style={{ position: 'absolute', top: '1rem', right: '1rem', color: 'var(--color-text)' }}
+              >
+                <X size={24} />
+              </button>
+              
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                <div style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)', fontWeight: 'bold' }}>メインメニュー</div>
+                {mainLinks.map(link => (
+                  <Link key={link.path} to={link.path} className="nav-link" onClick={() => setMobileMenuOpen(false)}>
+                    {link.icon} {link.name}
+                  </Link>
+                ))}
+                
+                <div style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)', fontWeight: 'bold', marginTop: '1rem' }}>情報を見る</div>
+                {subLinks.map(link => (
+                  <Link key={link.path} to={link.path} className="nav-link" onClick={() => setMobileMenuOpen(false)}>
+                    {link.icon} {link.name}
+                  </Link>
+                ))}
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+    </>
   );
 };
 
@@ -68,10 +119,10 @@ const PageWrapper = ({ children }) => {
   return (
     <motion.div
       key={location.pathname}
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -20 }}
-      transition={{ duration: 0.3 }}
+      exit={{ opacity: 0, y: -10 }}
+      transition={{ duration: 0.2 }}
       className="main-content"
     >
       {children}
@@ -84,17 +135,17 @@ function App() {
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
+  }, [theme]);
+
+  // Ensure setting on first mount
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', 'human');
   }, []);
 
   return (
     <BrowserRouter>
       <div className="app-container">
-        { /* Background animated blobs */ }
-        <div className="bg-orb orb-1"></div>
-        <div className="bg-orb orb-2"></div>
-        
         <Header theme={theme} setTheme={setTheme} />
-        
         <AnimatePresence mode="wait">
           <Routes>
             <Route path="/" element={<PageWrapper><Home theme={theme} /></PageWrapper>} />

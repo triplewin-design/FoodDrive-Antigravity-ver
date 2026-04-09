@@ -1,15 +1,16 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { Heart, PackageSearch, Truck, Map } from 'lucide-react';
+import { Heart, PackageSearch, Truck, Map, Package, ArrowRight } from 'lucide-react';
 
 export default function Home({ theme }) {
   const navigate = useNavigate();
   
   return (
     <div className="flex-col gap-8">
-      <div className="glass-panel" style={{ padding: '4rem 2rem', textAlign: 'center', marginBottom: '2rem' }}>
-        <motion.div initial={{ scale: 0.9 }} animate={{ scale: 1 }} transition={{ type: 'spring' }}>
+      {/* Hero Section */}
+      <div className="glass-panel" style={{ padding: '4rem 2rem', textAlign: 'center', marginBottom: '1rem', background: 'transparent', border: 'none', boxShadow: 'none' }}>
+        <motion.div initial={{ scale: 0.95, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 0.4 }}>
           <h1 className="title-xl">
             {theme === 'human' ? '見えない「もったいない」を、「ありがとう」に。' : '地域猫と保護猫に、あたたかいごはんを。'}
           </h1>
@@ -26,29 +27,61 @@ export default function Home({ theme }) {
         </motion.div>
       </div>
 
+      {/* 3 Step Flow (Task 4) */}
+      <div className="flow-container">
+        <div className="flow-step">
+          <span className="step-label">STEP 1</span>
+          <Package size={40} className="step-icon" />
+          <span className="step-title">食品を選ぶ</span>
+        </div>
+        
+        <ArrowRight size={24} className="flow-arrow" />
+        
+        <div className="flow-step">
+          <span className="step-label">STEP 2</span>
+          <Truck size={40} className="step-icon" />
+          <span className="step-title">持込 or 回収依頼</span>
+        </div>
+
+        <ArrowRight size={24} className="flow-arrow" />
+
+        <div className="flow-step">
+          <span className="step-label">STEP 3</span>
+          <Heart size={40} className="step-icon" />
+          <span className="step-title">施設へ届く</span>
+        </div>
+      </div>
+      <p style={{ textAlign: 'center', color: 'var(--color-text-muted)', fontSize: '0.9rem', marginBottom: '3rem', marginTop: '-1rem' }}>
+        3ステップで完了します
+      </p>
+
+      {/* 3 Cards */}
       <div className="cards-grid">
-        <div className="glass-panel feature-card" onClick={() => navigate('/needs')} style={{ cursor: 'pointer' }}>
+        <div className="glass-panel feature-card" onClick={() => navigate('/needs')}>
           <div className="icon-box"><PackageSearch /></div>
           <div>
             <h3 className="title-md">何が必要とされている？</h3>
             <p className="text-muted">子ども食堂や福祉施設で、今まさに不足している食品を確認できます。</p>
           </div>
+          <div className="card-action">確認する <ArrowRight size={16} /></div>
         </div>
 
-        <div className="glass-panel feature-card" onClick={() => navigate('/pickup')} style={{ cursor: 'pointer' }}>
+        <div className="glass-panel feature-card" onClick={() => navigate('/pickup')}>
           <div className="icon-box"><Truck /></div>
           <div>
             <h3 className="title-md">自宅まで回収に伺います</h3>
             <p className="text-muted">重いお米や大量の寄付でも安心。ご自宅や近隣までスタッフが回収に伺います。</p>
           </div>
+          <div className="card-action">確認する <ArrowRight size={16} /></div>
         </div>
 
-        <div className="glass-panel feature-card" onClick={() => navigate('/map')} style={{ cursor: 'pointer' }}>
+        <div className="glass-panel feature-card" onClick={() => navigate('/map')}>
           <div className="icon-box"><Map /></div>
           <div>
             <h3 className="title-md">近くの持ち込み場所</h3>
             <p className="text-muted">市内の回収ボックスや提携団体など、近くで持ち込み可能な場所を探せます。</p>
           </div>
+          <div className="card-action">確認する <ArrowRight size={16} /></div>
         </div>
       </div>
     </div>
