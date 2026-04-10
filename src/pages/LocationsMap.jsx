@@ -1,7 +1,7 @@
 import { MapPin, Building, Store } from 'lucide-react';
 import BackNav from '../components/BackNav';
 
-export default function LocationsMap({ theme }) {
+export default function LocationsMap() {
   // 実際の拠点情報を反映
   const publicFacilities = [
     { name: 'にっしんマスプロ市民会館（日進市民会館）', time: '午前9時から午後9時まで受付' },

@@ -2,7 +2,7 @@ import React from 'react';
 import { Truck } from 'lucide-react';
 import BackNav from '../components/BackNav';
 
-export default function Pickup({ theme }) {
+export default function Pickup() {
   return (
     <div style={{ maxWidth: '700px', margin: '0 auto' }}>
       <div className="glass-panel" style={{ padding: '2.5rem' }}>

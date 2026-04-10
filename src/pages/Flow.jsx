@@ -3,11 +3,11 @@ import { motion } from 'framer-motion';
 import { Home, Truck, Building2, HeartHandshake } from 'lucide-react';
 import BackNav from '../components/BackNav';
 
-export default function Flow({ theme }) {
+export default function Flow() {
   const steps = [
     { icon: <Home size={32} />, title: '1. 寄付の受付', desc: 'アプリから寄付を登録。"持込"か"回収"を選択します。' },
     { icon: <Truck size={32} />, title: '2. 回収・集約', desc: 'ボランティアまたはスタッフが回収し、社協の拠点へ集めます。' },
-    { icon: <Building2 size={32} />, title: '3. 仕分け・保管', desc: '社会福祉協議会で賞味期限やカテゴリ（人用/猫用）ごとに分類・保管されます。' },
+    { icon: <Building2 size={32} />, title: '3. 仕分け・保管', desc: '社会福祉協議会で賞味期限やカテゴリごとに分類・保管されます。' },
     { icon: <HeartHandshake size={32} />, title: '4. 必要な方へ', desc: '子ども食堂、福祉施設、地域猫団体など、リクエストのあった団体へお渡しします。' },
   ];
 

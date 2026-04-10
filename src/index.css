@@ -13,17 +13,6 @@
   --font-main: 'Inter', 'Noto Sans JP', sans-serif;
 }
 
-[data-theme='cat'] {
-  --color-primary: #4A7C8B;
-  --color-primary-light: #BDD4DA;
-  --color-primary-dark: #2F5C6B;
-  --color-bg: #F5F9FA;
-  --color-surface: #FFFFFF;
-  --color-text: #182830;
-  --color-text-muted: #4A6B75;
-  --color-border: #C5DCE2;
-}
-
 * {
   box-sizing: border-box;
   margin: 0;
@@ -227,10 +216,6 @@ button {
   border-radius: 999px;
   z-index: 0;
   transition: transform 0.3s ease;
-}
-
-[data-theme='cat'] .toggle-indicator {
-  transform: translateX(100%);
 }
 
 /* Forms */

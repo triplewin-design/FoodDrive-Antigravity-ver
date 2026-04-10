@@ -1,9 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { Heart, PackageSearch, Truck, Map, Package, ArrowRight } from 'lucide-react';
+import { Heart, PackageSearch, Truck, Map as MapIcon, Package, ArrowRight } from 'lucide-react';
 
-export default function Home({ theme }) {
+export default function Home() {
   const navigate = useNavigate();
   
   return (
@@ -12,12 +12,10 @@ export default function Home({ theme }) {
       <div className="glass-panel" style={{ padding: '4rem 2rem', textAlign: 'center', marginBottom: '1rem', background: 'transparent', border: 'none', boxShadow: 'none' }}>
         <motion.div initial={{ scale: 0.95, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 0.4 }}>
           <h1 className="title-xl">
-            {theme === 'human' ? '見えない「もったいない」を、「ありがとう」に。' : '地域猫と保護猫に、あたたかいごはんを。'}
+            見えない「もったいない」を、「ありがとう」に。
           </h1>
           <p className="text-muted" style={{ fontSize: '1.2rem', maxWidth: '600px', margin: '0 auto', marginBottom: '2rem' }}>
-            {theme === 'human' 
-              ? '家庭で余っている食品を、必要としている子ども食堂や福祉施設へ。少しの行動が、誰かの明日の笑顔に繋がります。'
-              : '未開封のキャットフードを、地域猫活動や保護ボランティアへ。小さな命を地域で守りましょう。'}
+            家庭で余っている食品を、必要としている子ども食堂や福祉施設へ。少しの行動が、誰かの明日の笑顔に繋がります。
           </p>
           <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
             <button className="btn btn-primary" onClick={() => navigate('/donate')} style={{ fontSize: '1.2rem', padding: '1rem 2.5rem' }}>
@@ -76,7 +74,7 @@ export default function Home({ theme }) {
         </div>
 
         <div className="glass-panel feature-card" onClick={() => navigate('/map')}>
-          <div className="icon-box"><Map /></div>
+          <div className="icon-box"><MapIcon /></div>
           <div>
             <h3 className="title-md">近くの持ち込み場所</h3>
             <p className="text-muted">市内の回収ボックスや提携団体など、近くで持ち込み可能な場所を探せます。</p>

@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { Send, CheckCircle } from 'lucide-react';
 import BackNav from '../components/BackNav';
 
-export default function Donate({ theme }) {
+export default function Donate() {
   const [submitted, setSubmitted] = useState(false);
 
   const handleSubmit = (e) => {
@@ -44,23 +44,12 @@ export default function Donate({ theme }) {
             <label className="form-label">食品カテゴリ</label>
             <select className="form-select" required>
               <option value="">選択してください</option>
-              {theme === 'human' ? (
-                <>
-                  <option>お米（白米・パック・アルファ米）</option>
-                  <option>パスタ・乾麺</option>
-                  <option>缶詰・瓶詰</option>
-                  <option>レトルト・インスタント食品</option>
-                  <option>お菓子・飲料</option>
-                  <option>その他（調味料など）</option>
-                </>
-              ) : (
-                <>
-                  <option>ドライフード（総合栄養食）</option>
-                  <option>ウェットフード（パウチ・缶詰）</option>
-                  <option>おやつ（ちゅ〜る等）</option>
-                  <option>療法食（要相談）</option>
-                </>
-              )}
+              <option>お米（白米・パック・アルファ米）</option>
+              <option>パスタ・乾麺</option>
+              <option>缶詰・瓶詰</option>
+              <option>レトルト・インスタント食品</option>
+              <option>お菓子・飲料</option>
+              <option>その他（調味料など）</option>
             </select>
           </div>
 

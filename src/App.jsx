@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter, Routes, Route, Link, useLocation } from 'react-router-dom';
+import { HashRouter, Routes, Route, Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Heart, PackageSearch, Truck, Map as MapIcon, ArrowRightLeft, Menu, X } from 'lucide-react';
 
@@ -11,15 +11,9 @@ import Pickup from './pages/Pickup';
 import LocationsMap from './pages/LocationsMap';
 import Flow from './pages/Flow';
 
-const Header = ({ theme, setTheme }) => {
+const Header = () => {
   const location = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
-  const toggleTheme = () => {
-    const newTheme = theme === 'human' ? 'cat' : 'human';
-    setTheme(newTheme);
-    document.documentElement.setAttribute('data-theme', newTheme);
-  };
 
   // 寄付する, 回収を頼む are main
   const mainLinks = [
@@ -53,12 +47,6 @@ const Header = ({ theme, setTheme }) => {
                 {link.icon} {link.name}
               </Link>
             ))}
-          </div>
-
-          <div className="theme-toggle" onClick={toggleTheme}>
-            <div className="toggle-indicator"></div>
-            <div className={`toggle-option ${theme === 'human' ? 'active' : ''}`}>人用</div>
-            <div className={`toggle-option ${theme === 'cat' ? 'active' : ''}`}>猫用</div>
           </div>
 
           <button className="mobile-menu-btn" onClick={() => setMobileMenuOpen(true)}>
@@ -131,33 +119,26 @@ const PageWrapper = ({ children }) => {
 };
 
 function App() {
-  const [theme, setTheme] = useState('human');
-
-  useEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme);
-  }, [theme]);
-
-  // Ensure setting on first mount
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', 'human');
   }, []);
 
   return (
-    <BrowserRouter>
+    <HashRouter>
       <div className="app-container">
-        <Header theme={theme} setTheme={setTheme} />
+        <Header />
         <AnimatePresence mode="wait">
           <Routes>
-            <Route path="/" element={<PageWrapper><Home theme={theme} /></PageWrapper>} />
-            <Route path="/donate" element={<PageWrapper><Donate theme={theme} /></PageWrapper>} />
-            <Route path="/needs" element={<PageWrapper><Needs theme={theme} /></PageWrapper>} />
-            <Route path="/pickup" element={<PageWrapper><Pickup theme={theme} /></PageWrapper>} />
-            <Route path="/map" element={<PageWrapper><LocationsMap theme={theme} /></PageWrapper>} />
-            <Route path="/flow" element={<PageWrapper><Flow theme={theme} /></PageWrapper>} />
+            <Route path="/" element={<PageWrapper><Home /></PageWrapper>} />
+            <Route path="/donate" element={<PageWrapper><Donate /></PageWrapper>} />
+            <Route path="/needs" element={<PageWrapper><Needs /></PageWrapper>} />
+            <Route path="/pickup" element={<PageWrapper><Pickup /></PageWrapper>} />
+            <Route path="/map" element={<PageWrapper><LocationsMap /></PageWrapper>} />
+            <Route path="/flow" element={<PageWrapper><Flow /></PageWrapper>} />
           </Routes>
         </AnimatePresence>
       </div>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 

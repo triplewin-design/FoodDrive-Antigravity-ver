@@ -1,23 +1,14 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { AlertCircle } from 'lucide-react';
-
 import BackNav from '../components/BackNav';
 
-export default function Needs({ theme }) {
-  const humanNeeds = [
+export default function Needs() {
+  const needsList = [
     { title: '認定NPO法人 みなみ子ども食堂', need: 'レトルトカレー / お米', urgency: 'high', desc: '毎月第3土曜日の開催に向けて、特にレトルトカレーと白米が不足しています。' },
     { title: '地域福祉センター', need: '缶詰 / 瓶詰', urgency: 'medium', desc: '長期保存が可能な缶詰（ツナ、サバ缶など）を探しています。' },
     { title: '困窮世帯支援プロジェクト', need: 'インスタント食品', urgency: 'high', desc: 'すぐ調理できるインスタント食品の需要が急増しています。' },
   ];
-
-  const catNeeds = [
-    { title: '地域猫見守りの会', need: 'ドライフード（成猫用）', urgency: 'high', desc: '毎日の給餌用として、大袋のドライフードが非常に不足しています。' },
-    { title: '保護猫シェルター わん・にゃん', need: 'ウェットフード', urgency: 'medium', desc: 'シニア猫や体調不良の子向けに、消化の良いウェットフードを探しています。' },
-    { title: 'ボランティア T様', need: '子猫用ミルク・離乳食', urgency: 'high', desc: '保護したばかりの子猫用ミルクが急ぎで必要です。（※未開封に限る）' },
-  ];
-
-  const currentNeeds = theme === 'human' ? humanNeeds : catNeeds;
 
   return (
     <div>
@@ -30,7 +21,7 @@ export default function Needs({ theme }) {
       </div>
 
       <div className="cards-grid">
-        {currentNeeds.map((item, index) => (
+        {needsList.map((item, index) => (
           <motion.div 
             key={index}
             initial={{ opacity: 0, y: 10 }}
